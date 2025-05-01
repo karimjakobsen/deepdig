@@ -1,8 +1,10 @@
 import numpy as np
 import math
 
+class Activation:
+    pass
 
-class ReLU:
+class ReLU(Activation):
 
     def compute(self, Z: np.ndarray) -> np.ndarray:
         """
@@ -17,11 +19,8 @@ class ReLU:
     
     def derivative(self, gradients: np.ndarray) -> np.ndarray:
         """"""
-class Loss:
-    self.Z = Z
-    self.A = A
     
-class Sigmoid:
+class Sigmoid(Activation):
 
     def compute(self, Z: np.ndarray) -> np.ndarray:
 
@@ -42,7 +41,7 @@ class Sigmoid:
         s = compute(Z)
         return s*(1-s)
 
-class Tanh:
+class Tanh(Activation):
 
     def compute(self, Z: np.ndarray) -> np.ndarray:
         """
