@@ -44,10 +44,10 @@ class Sigmoid(Activation):
         
         return sigmoid
     
-    def derivative(self, gradients: np.ndarray) -> np.ndarray:
-        """computes the """
-        s = compute(Z)
-        return s*(1-s)
+    def derivative(self, z: np.ndarray) -> np.ndarray:
+        """computes σ(z) = a and returns it's derivative as an np.ndarray"""
+        a = compute(z)
+        return s*(1-a)
 
 class Tanh(Activation):
 
