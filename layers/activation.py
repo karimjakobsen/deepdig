@@ -1,8 +1,16 @@
 import numpy as np
 import math
+from abc import ABC, abstractmethod
 
-class Activation:
-    pass
+
+class Activation(ABC):
+    @abstractmethod
+    def compute(self, z):
+        pass
+    
+    @abstractmethod
+    def derivative(self, z):
+        pass
 
 class ReLU(Activation):
 

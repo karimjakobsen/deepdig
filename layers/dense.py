@@ -1,6 +1,18 @@
 import numpy as np
-from deepdig.layers.activation import Activation, Sigmoid
-class Dense:
+from deepdig.layers.activation import Activation, Sigmoid, ReLU, Tanh
+from abc import ABC, abstractmethod
+
+class Layer(ABC):
+    @abstractmethod
+    def forward(self, x):
+        pass
+    
+    @abstractmethod
+    def backward(self, gradient):
+        pass
+
+    
+class Dense(Layer):
     def __init__(self, neurons: int, activation: Activation):
 
         self.neurons = neurons
@@ -30,13 +42,4 @@ class Dense:
         self.z = np.dot(self.weights, x)+self.bias
         self.a = self.activation.compute(self.z)
         return self.a
-
-activation = Sigmoid()
-
-layer = Dense(4, activation)
-
-x = np.array([[0.4], [-4.2]]) #shape (2,1) (2 samples 1 feature)
-
-out = layer.forward(x)
-
-print(out)
+    
