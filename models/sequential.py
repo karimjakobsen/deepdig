@@ -1,20 +1,44 @@
 
 class Sequential:
-    def __init__(self, loss: Loss, layers: list[Layer], optimizer: str):
+    def __init__(self, loss: Loss, layers: list[Layer], optimizer: Optimizer):
 
         self.loss = loss
         self.layers = layers
-        self.opt = None
+        self.optimizer = optimizer
 
     def build(self):
         pass
-
-    def forward(self):
+    
+    def train():
         pass
+    
+    def train_step(self, x: np.ndarray, y_true: np.ndarray)
+    """where x is feature vector and y_true is label vector"""
 
-    def backpropagation(self):
+    # 1. forward pass
+    y_pred = self.forward(x)
+
+    # 2. backwards pass
+    self.backpropagation(y_pred, y_true)
+
+    # 3. update weights
+    self.optimizer.update(self.layers) #update weights in all layers
+
+    def forward(self, x: np.ndarray):
+        """        
+            For the initial pass x is the input. After initial pass x is the output of the previous pass.  
+        """
+
+        for layer in self.layers:
+
+            #for every iteration x is the output of previous layer passed as input to the new layer
+            x = layer.forward(x)
+
+    def backpropagation(self, y_pred: np.ndarray, y_true: np.ndarray):
+
         
         #loss_gradient dL/da
+        self.loss.gradient
         #✅  loss derivative w.r.t output activation
 
         #loop (resversed) through self.layers

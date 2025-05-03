@@ -27,7 +27,7 @@ class MSE(Loss):
             self.value = np.mean((y_true - y_pred)**2)
             return np.mean((y_true - y_pred)**2)
         
-    def loss_gradient(self, y_true: np.ndarray, y_pred: np.ndarrray) -> float:
+    def gradient(self, y_true: np.ndarray, y_pred: np.ndarrray) -> float:
         """calculates the gradient of the MSE loss (self.value) and returns it as a float
         """
 
