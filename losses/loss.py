@@ -8,7 +8,7 @@ class Loss(ABC):
         pass
     
     @abstractmethod
-    def loss_gradient(self, z):
+    def derivative(self, z):
         pass
 
 class MSE(Loss):
@@ -27,8 +27,8 @@ class MSE(Loss):
             self.value = np.mean((y_true - y_pred)**2)
             return np.mean((y_true - y_pred)**2)
         
-    def gradient(self, y_true: np.ndarray, y_pred: np.ndarrray) -> float:
-        """calculates the gradient of the MSE loss (self.value) and returns it as a float
+    def derivative(self, y_true: np.ndarray, y_pred: np.ndarrray) -> float:
+        """calculates the derivative of the MSE loss (self.value) and returns it as a float
         """
 
         return (y_pred - y_true)/y_true.size

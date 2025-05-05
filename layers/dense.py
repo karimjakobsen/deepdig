@@ -19,6 +19,8 @@ class Dense(Layer):
         self.activation = activation
         self.weights = None
         self.bias = None
+        self.dW = None
+        self.db = None
         self.z = None #sore for backprop
         self.a = None #store for backprop
         self.input_dim = None #set a first forward pass
