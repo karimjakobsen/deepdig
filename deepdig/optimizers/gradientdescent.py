@@ -1,4 +1,4 @@
-from deepdig import Optimizer
+from deepdig.optimizers.optimizer import Optimizer
 
 class GradientDescent(Optimizer):
     """"""

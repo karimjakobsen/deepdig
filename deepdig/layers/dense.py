@@ -3,7 +3,7 @@ from deepdig.layers.activation import Activation, Sigmoid, ReLU, Tanh
 from deepdig.layers.layer import Layer
 
 class Dense(Layer):
-    def __init__(self, neurons: int, activation: Activation):
+    def __init__(self, neurons = 4, activation: Activation = Sigmoid()):
         self.neurons = neurons
         self.activation = activation
         self.weights = None

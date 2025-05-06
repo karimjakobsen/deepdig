@@ -1,6 +1,7 @@
+
+from deepdig.optimizers.gradientdescent import Optimizer
 from deepdig.losses.loss import Loss
 from deepdig.layers.layer import Layer
-from deepdig.optimizers.optimizer import Optimizer
 import numpy as np
 
 class Sequential:

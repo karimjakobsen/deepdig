@@ -1,4 +1,4 @@
-from loss import Loss
+from deepdig.losses.loss import Loss
 import numpy as np
 
 class MSE(Loss):

@@ -5,6 +5,3 @@ class Layer(ABC):
     def forward(self, x):
         pass
     
-    @abstractmethod
-    def backward(self, gradient):
-        pass
