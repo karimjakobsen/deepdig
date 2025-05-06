@@ -1,11 +1,10 @@
-
 from deepdig.optimizers.gradientdescent import Optimizer
 from deepdig.losses.loss import Loss
 from deepdig.layers.layer import Layer
 import numpy as np
 
 class Sequential:
-    def __init__(self, loss: Loss, layers: list[Layer], optimizer: Optimizer, epochs = 100):
+    def __init__(self, layers: list[Layer], optimizer: Optimizer, loss: Loss, epochs = 100):
 
         self.loss = loss
         self.layers = layers
