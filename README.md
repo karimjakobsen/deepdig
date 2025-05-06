@@ -2,25 +2,6 @@ deepdig is a deep learning library
 It is being developed as an exercise to better understand core DL concepts
 At this point there is only a basic sequential model with dense layers available.
 
-=============== PROJECT STRUCTURE ======================
-deepdig/
-├── layers/           # Layer implementations
-│   ├── dense.py      # Dense (fully connected) layer
-│   └── activation.py # ReLU, Sigmoid
-├── losses/           # Loss functions
-│   ├── mse.py
-│   └── cross_entropy.py (NOT IMPLEMTED)
-├── optimizers/       # Optimization algorithms
-│   ├── sgd.py        (NOT IMPLEMTED)
-│   └── adam.py       (NOT IMPLEMTED) 
-    └── gradient_descent.py 
-├── models/           # Network architectures
-│   └── sequential.py # Sequential model
-└── utils/            # Helpers (NOT IMPLEMENTED)
-    ├── initializers.py # Weight initialization
-    └── metrics.py     # Accuracy, precision (NOT IMPLEMENTED)
-
-
 Designing a neural network:
 
 X -> h1 -> h2 -> output
