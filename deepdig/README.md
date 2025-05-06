@@ -1,5 +1,6 @@
 Simple neural network package.
 Project made to better understand deep learning architectures and underlying logic.
+project is work in progress
 
 Install:
 pip install git+https://github.com/karimjakobsen/deepdig.git
@@ -7,7 +8,6 @@ pip install git+https://github.com/karimjakobsen/deepdig.git
 
 Basic Sequential model example:
 ====================================================================================================
-import deepdig as dd
 from deepdig.optimizers.gradientdescent import GradientDescent
 from deepdig.losses.mse import MSE
 from deepdig.layers.sigmoid import Sigmoid
