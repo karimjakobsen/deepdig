@@ -8,7 +8,7 @@ class Layer(ABC):
         pass
     
 class Dense(Layer):
-    def __init__(self, neurons = 4, activation: str = "sigmoid"):
+    def __init__(self, neurons = 4, activation = 'sigmoid'):
         self.neurons = neurons
         self.activation = activation
         self.weights = None
@@ -19,23 +19,14 @@ class Dense(Layer):
         self.a = None #store for backprop
         self.input_dim = None #set a first forward pass
 
-    def set_activation(self):
-        """
-        Sets the correct activation function based on parameter self.activation
-        """
+    def set(self):
+        """Sets activation function"""
 
-        if self.activation == "sigmoid":
+        if self.activation == 'sigmoid':
             self.activation = Sigmoid()
-        elif self.activation == "tanh":
-            self.activation = TanH()
-        elif self.activation == "softmax":
-            self.activation = Softmax()
-        elif self.activation == "relu":
-            self.activation = ReLU()
         else:
-            raise Exception("Valid activation functions: 'sigmoid, 'tanh', 'softmax', 'relu'. Specify in lowercase")
-            
-
+            raise Exception("Invalid input. Valid inputs: 'sigmoid', 'tanh', 'softmax', 'relu' in lower case")
+        
     def initialize(self):
         """
         initialize weights and bias

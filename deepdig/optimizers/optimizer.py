@@ -8,7 +8,7 @@ class Optimizer(ABC):
 class GradientDescent(Optimizer):
     
     """"""
-    def __init__(self, learning_rate = 0.01):
+    def __init__(self, learning_rate: float):
         self.learning_rate = learning_rate
         
     def update(self, layer) -> None:

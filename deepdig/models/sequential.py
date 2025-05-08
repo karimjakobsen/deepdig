@@ -1,38 +1,49 @@
-from deepdig.optimizers.optimizer import Optimizer
-from deepdig.losses.loss import Loss
+from deepdig.optimizers.optimizer import Optimizer, GradientDescent
+from deepdig.losses.loss import Loss, MSE
 from deepdig.layers.dense import Layer, Dense
 import numpy as np
 
 class Sequential:
-    def __init__(self, layers: list[Layer], optimizer: str = "gradient_descent", loss: str = "mse", epochs = 100):
+    def __init__(self, layers: list[Layer], optimizer: str = "gradient_descent", learning_rate: float = 0.01, loss: str = "mse", epochs = 100):
 
         self.loss = loss
         self.layers = layers
         self.optimizer = optimizer
         self.cache = None
         self.epochs = epochs
+        self.learning_rate = learning_rate
 
     def build(self):
         """
         Sets the correct loss function based on parameter self.loss
         Sets the correct optimizer algorithm based on parameter self.optimizer
+        Sets the correct activation function for each Layer.
         """
 
+        
+        if not type(self.learning_rate) == float:
+            raise Exception("learning_rate must be of type float")
+
+        # set loss function for model
         if self.loss == "mse":
             self.loss = MSE()
         elif self.loss == "cross_entropy":
             self.loss = CrossEntropy()
         else:
-            raise Exception("Valid loss functions: 'mse, 'cross_entropy'. Specify in lowercase")
+            raise Exception("Valid loss functions: 'mse', 'cross_entropy'. Specify in lowercase")
 
-        
+        # set optimizer for model
         if self.optimizer == "gradient_descent":
-            self.loss = GradientDescent()
-        elif self.loss == "adam":
-            self.loss = Adam()
+            self.optimizer = GradientDescent(self.learning_rate)
+        elif self.optimizer == "adam":
+            self.optimizer = Adam(self.learning_rate)
         else:
-            raise Exception("Valid loss functions: 'mse, 'cross_entropy'. Specify in lowercase")
-            
+            raise Exception("Valid optimizers: 'gradient_descent', 'adam', 'sgd'. Specify in lowercase")
+
+        # set activation function for each layer
+        for layer in self.layers:
+            layer.set()
+                
     
     def train(self, x: np.ndarray, y_true: np.ndarray):
         #handle epochs here
@@ -49,6 +60,9 @@ class Sequential:
 
         # 1. forward pass
         y_pred = self.forward(x)
+
+        print('predicted:', np.shape(y_pred))
+        print('true:', np.shape(y_true))
 
         # 2. compute loss of output from latest forward 
         self.loss.value = self.loss.compute(y_true, y_pred)
@@ -80,6 +94,7 @@ class Sequential:
         """
 
         return self.forward(x)
+    
     def backpropagation(self, y_true: np.ndarray, y_pred: np.ndarray):
 
         
