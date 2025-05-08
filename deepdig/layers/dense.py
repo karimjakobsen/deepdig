@@ -1,9 +1,14 @@
 import numpy as np
-from deepdig.layers.activation import Activation, Sigmoid, ReLU, Tanh
-from deepdig.layers.layer import Layer
+from deepdig.layers.activation import Activation, Sigmoid, TanH, ReLU
+from abc import ABC, abstractmethod
 
+class Layer(ABC):
+    @abstractmethod
+    def forward(self, x):
+        pass
+    
 class Dense(Layer):
-    def __init__(self, neurons = 4, activation: Activation = Sigmoid()):
+    def __init__(self, neurons = 4, activation: str = "sigmoid"):
         self.neurons = neurons
         self.activation = activation
         self.weights = None
@@ -13,6 +18,23 @@ class Dense(Layer):
         self.z = None #sore for backprop
         self.a = None #store for backprop
         self.input_dim = None #set a first forward pass
+
+    def set_activation(self):
+        """
+        Sets the correct activation function based on parameter self.activation
+        """
+
+        if self.activation == "sigmoid":
+            self.activation = Sigmoid()
+        elif self.activation == "tanh":
+            self.activation = TanH()
+        elif self.activation == "softmax":
+            self.activation = Softmax()
+        elif self.activation == "relu":
+            self.activation = ReLU()
+        else:
+            raise Exception("Valid activation functions: 'sigmoid, 'tanh', 'softmax', 'relu'. Specify in lowercase")
+            
 
     def initialize(self):
         """

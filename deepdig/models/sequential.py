@@ -1,10 +1,10 @@
-from deepdig.optimizers.gradientdescent import Optimizer
+from deepdig.optimizers.optimizer import Optimizer
 from deepdig.losses.loss import Loss
-from deepdig.layers.layer import Layer
+from deepdig.layers.dense import Layer, Dense
 import numpy as np
 
 class Sequential:
-    def __init__(self, layers: list[Layer], optimizer: Optimizer, loss: Loss, epochs = 100):
+    def __init__(self, layers: list[Layer], optimizer: str = "gradient_descent", loss: str = "mse", epochs = 100):
 
         self.loss = loss
         self.layers = layers
@@ -13,7 +13,26 @@ class Sequential:
         self.epochs = epochs
 
     def build(self):
-        pass
+        """
+        Sets the correct loss function based on parameter self.loss
+        Sets the correct optimizer algorithm based on parameter self.optimizer
+        """
+
+        if self.loss == "mse":
+            self.loss = MSE()
+        elif self.loss == "cross_entropy":
+            self.loss = CrossEntropy()
+        else:
+            raise Exception("Valid loss functions: 'mse, 'cross_entropy'. Specify in lowercase")
+
+        
+        if self.optimizer == "gradient_descent":
+            self.loss = GradientDescent()
+        elif self.loss == "adam":
+            self.loss = Adam()
+        else:
+            raise Exception("Valid loss functions: 'mse, 'cross_entropy'. Specify in lowercase")
+            
     
     def train(self, x: np.ndarray, y_true: np.ndarray):
         #handle epochs here
