@@ -24,13 +24,13 @@ class MSE(Loss):
             raise ValueError("Expected two np.ndarrays of same shape but got two of different shapes")
         else:
             self.value = np.mean((y_true - y_pred)**2)
-            return np.mean((y_true - y_pred)**2)
+            return self.value
         
     def derivative(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """calculates the derivative of the MSE loss (self.value) and returns it as a float
         """
 
-        return (y_pred - y_true)/y_true.size
+        return 2*(y_pred - y_true)/y_true.size
 
 class CrossEntropy(Loss):
     def __init__(self):
