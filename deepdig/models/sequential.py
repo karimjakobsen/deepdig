@@ -53,7 +53,7 @@ class Sequential:
             #print epoch and loss of current opoch
             print(f"Epoch: {epoch+1} of {self.epochs}, Loss: {self.loss.value:.4f}")
 
-        print(f"Prediction:", self.predict(x))
+        #print(f"Prediction:", self.predict(x))
     
     def train_step(self, x: np.ndarray, y_true: np.ndarray):
         """where x is feature vector and y_true is label vector"""
@@ -61,8 +61,8 @@ class Sequential:
         # 1. forward pass
         y_pred = self.forward(x)
 
-        print('predicted:', np.shape(y_pred))
-        print('true:', np.shape(y_true))
+        #print('predicted:', np.shape(y_pred))
+        #print('true:', np.shape(y_true))
 
         # 2. compute loss of output from latest forward 
         self.loss.value = self.loss.compute(y_true, y_pred)
@@ -71,8 +71,8 @@ class Sequential:
         self.backpropagation(y_pred, y_true)
 
         # 4. update weights
-        for layer in self.layers:
-            self.optimizer.update(layer) #update weights in all layers
+        #for layer in self.layers:
+            #self.optimizer.update(layer) #update weights in all layers
     
 
     def forward(self, x: np.ndarray):
@@ -117,15 +117,19 @@ class Sequential:
             dL_dz = dL_da * da_dz
 
             # dL/db = sum across batch (axis=1, maintains column shape)
-            dL_db = np.sum(dL_dz, axis=1, keepdims=True) ############## <--- need to understand this part better
-            print(dL_db) #To see data
-            
+            dL_db = np.sum(dL_dz, axis=0, keepdims=True) ############## <--- need to understand this part better
+
+            #print('bias', dL_db) #To see data
+            #print('bias shape', np.shape(dL_db))
             #weight_gradients
             #✅ derivative of loss w.r.t weights: dL/dW = delta * a_prev.T
-            prev_layer = self.layers[i-1].a if i > 0 else self.cache
-                
-            dL_dW = dL_dz @ prev_layer.T
-            
+            prev_activation = self.cache if i == 0 else self.layers[i-1].a
+
+            dL_dW = np.dot(dL_dz.T, prev_activation)            
+            dL_da = np.dot(dL_dz, layer.weights)
+
             layer.dW = dL_dW
             layer.db = dL_db
 
+            # update
+            self.optimizer.update(layer)

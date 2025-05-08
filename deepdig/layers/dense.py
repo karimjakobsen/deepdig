@@ -32,18 +32,19 @@ class Dense(Layer):
         initialize weights and bias
         """
         self.weights = np.random.randn(self.neurons, self.input_dim) * 0.01
-        self.bias = np.zeros((self.neurons, 1))
+        self.bias = np.zeros((1, self.neurons))
 
     def forward(self, x):
         """pass x through layer
         """
-
+        
         # initalize weigts/bias
         if self.weights is None:
-            self.input_dim = x.shape[0] #specify input dimension of layer
+            self.input_dim = x.shape[1] #specify input dimension of layer
             self.initialize()
-            
-        self.z = np.dot(self.weights, x)+self.bias
+
+        self.input = x
+        self.z = np.dot(x, self.weights.T) + self.bias
         self.a = self.activation.compute(self.z)
         return self.a
     

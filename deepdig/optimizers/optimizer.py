@@ -14,8 +14,8 @@ class GradientDescent(Optimizer):
     def update(self, layer) -> None:
         """updates weights and biases in layer instances after backpropagation e.g. lr*gradient
         """
-        layer.weights -= self.learning_rate * layer.dW 
-        layer.bias -= self.learning_rate * layer.db 
+        layer.weights -= (self.learning_rate * layer.dW) 
+        layer.bias -= (self.learning_rate * layer.db)
     
     
 class SGD(Optimizer):
