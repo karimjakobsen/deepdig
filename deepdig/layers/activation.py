@@ -49,6 +49,7 @@ class TanH(Activation):
 
     def derivative(self, gradients: np.ndarray) -> np.ndarray:
         """ """
+        pass
         
 
 class ReLU(Activation):
@@ -64,8 +65,20 @@ class ReLU(Activation):
 
         return np.where(Z<=0, 0, Z) # equivalent of np.array([0 if x <= 0 else x for x in Z])
     
-    def derivative(self, gradients: np.ndarray) -> np.ndarray:
+    def derivative(self, Z: np.ndarray) -> np.ndarray:
         """"""
+        return float(Z > 0) # returns 1 if true else 0
+    
+class Softmax(Activation):
 
+    def compute(self, Z: np.ndarray) -> np.ndarray:
+
+        """
+        """
+
+        return np.exp(Z) / np.sum(np.exp(Z))
+
+    def derivative(self, gradients: np.ndarray) -> np.ndarray:
+        pass
         
 

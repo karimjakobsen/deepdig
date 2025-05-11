@@ -111,27 +111,30 @@ class Sequential:
             #sigmoid_gradient da/dz
             #✅ derivative of sigmoid function
             da_dz = layer.activation.derivative(layer.z)
-            print(f"Layer {i} da_dz shape:", da_dz.shape, "da_dz mean:", np.mean(da_dz))
+            #print(f"Layer {i} da_dz shape:", da_dz.shape, "da_dz mean:", np.mean(da_dz))
             
             #delta_gradient (loss_gradient * sigmoid_gradient)
             #✅ chain rule applied here
             dL_dz = dL_da * da_dz
-            print(f"Layer {i} dL_dz shape:", dL_dz.shape, "dL_dz mean:", np.mean(dL_dz))
+            #print(f"Layer {i} dL_dz shape:", dL_dz.shape, "dL_dz mean:", np.mean(dL_dz))
 
             # dL/db = sum across batch (axis=1, maintains column shape)
+            #dL_db = dL_dz
             dL_db = np.sum(dL_dz, axis=0, keepdims=True) ############## <--- need to understand this part better
-            print(f"Layer {i} dL_db shape:", dL_db.shape, "dL_db mean:", np.mean(dL_db))
+            #print(f"Layer {i} dL_db shape:", dL_db.shape, "dL_db mean:", np.mean(dL_db))
             
             #weight_gradients
             #✅ derivative of loss w.r.t weights: dL/dW = delta * a_prev.T
             prev_activation = self.cache if i == 0 else self.layers[i-1].a
-            print(f"Layer {i} prev_activation shape:", prev_activation.shape)
+            #print(f"Layer {i} prev_activation shape:", prev_activation.shape)
 
-            dL_dW = np.dot(dL_dz.T, prev_activation)
-            print(f"Layer {i} dL_dW shape:", dL_dW.shape, "dL_dW mean:", np.mean(dL_dW))
             
-            dL_da = np.dot(dL_dz, layer.weights)
-            print(f"Layer {i} new dL_da shape:", dL_da.shape, "new dL_da mean:", np.mean(dL_da))
+            dL_da = np.dot(dL_dz, layer.weights.T)
+
+            dL_dW = np.dot(prev_activation.T, dL_dz)
+            #print(f"Layer {i} dL_dW shape:", dL_dW.shape, "dL_dW mean:", np.mean(dL_dW))
+            
+            #print(f"Layer {i} new dL_da shape:", dL_da.shape, "new dL_da mean:", np.mean(dL_da))
             layer.dW = dL_dW
             layer.db = dL_db
 

@@ -24,6 +24,10 @@ class Dense(Layer):
 
         if self.activation == 'sigmoid':
             self.activation = Sigmoid()
+        elif self.activation == 'relu':
+            self.activation = ReLU()
+        elif self.activation == 'softmax':
+            self.activation = Softmax()
         else:
             raise Exception("Invalid input. Valid inputs: 'sigmoid', 'tanh', 'softmax', 'relu' in lower case")
         
@@ -31,7 +35,7 @@ class Dense(Layer):
         """
         initialize weights and bias
         """
-        self.weights = np.random.randn(self.neurons, self.input_dim) * 0.01
+        self.weights = np.random.randn(self.input_dim, self.neurons) * 0.01
         self.bias = np.zeros((1, self.neurons))
 
     def forward(self, x):
@@ -44,7 +48,9 @@ class Dense(Layer):
             self.initialize()
 
         self.input = x
-        self.z = np.dot(x, self.weights.T) + self.bias
+        print("input_dim.shape .", self.input_dim)
+        print("forward x shape:", self.input.shape)
+        self.z = np.dot(x, self.weights) + self.bias
         self.a = self.activation.compute(self.z)
         return self.a
     
