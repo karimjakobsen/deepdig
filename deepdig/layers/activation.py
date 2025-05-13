@@ -31,6 +31,7 @@ class Sigmoid(Activation):
     def derivative(self, z: np.ndarray) -> np.ndarray:
         """computes σ(z) = a and returns it's derivative as an np.ndarray"""
         a = self.compute(z)
+        # print("a * (1 -a) = ", a * (1 -a))
         return a*(1-a)
 
 
@@ -67,7 +68,7 @@ class ReLU(Activation):
     
     def derivative(self, Z: np.ndarray) -> np.ndarray:
         """"""
-        return float(Z > 0) # returns 1 if true else 0
+        return (Z > 0).astype(float)
     
 class Softmax(Activation):
 

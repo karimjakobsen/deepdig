@@ -26,7 +26,7 @@ class MSE(Loss):
             self.value = np.mean((y_true - y_pred)**2)
             return self.value
         
-    def derivative(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def derivative(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
         """calculates the derivative of the MSE loss (self.value) and returns it as a float
         """
 

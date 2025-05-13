@@ -1,11 +1,4 @@
-from abc import ABC, abstractmethod
-import numpy as np
-
-
-class Optimizer(ABC):
-    @abstractmethod
-    def update(self, learning_rate = 0.01):
-        pass
+from deepdig.optimizers.optimizer import Optimizer
 
 class GradientDescent(Optimizer):
     """"""
